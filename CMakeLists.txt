@@ -26,18 +26,21 @@ ADD_COMPILE_OPTIONS(
 FIND_PACKAGE(libsortnetwork REQUIRED)
 FIND_PACKAGE(SharemindCxxHeaders REQUIRED)
 FIND_PACKAGE(SharemindLibmodapi REQUIRED)
+FIND_PACKAGE(SharemindLibsoftfloat REQUIRED)
 FIND_PACKAGE(SharemindVmGlobals REQUIRED)
 
 INCLUDE_DIRECTORIES(
     ${LIBSORTNETWORK_INCLUDE_DIRS}
     ${SharemindCxxHeaders_INCLUDE_DIRS}
     ${SharemindLibmodapi_INCLUDE_DIRS}
+    ${SharemindLibsoftfloat_INCLUDE_DIRS}
     ${SharemindVmGlobals_INCLUDE_DIRS}
 )
 
 ADD_DEFINITIONS(
     ${SharemindCxxHeaders_DEFINITIONS}
     ${SharemindLibmodapi_DEFINITIONS}
+    ${SharemindLibsoftfloat_DEFINITIONS}
     ${SharemindVmGlobals_DEFINITIONS}
 )
 
@@ -49,6 +52,7 @@ ADD_LIBRARY(sharemind_mod_algorithms MODULE ${SHAREMIND_MOD_ALGORITHMS_SOURCES}
 TARGET_LINK_LIBRARIES(sharemind_mod_algorithms
     ${LIBSORTNETWORK_LIBRARIES}
     ${SharemindCxxHeaders_LIBRARIES}
+    ${SharemindLibsoftfloat_LIBRARIES}
     ${SharemindVmGlobals_LIBRARIES}
 )
 

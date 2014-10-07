@@ -13,6 +13,7 @@
 #include "Misc.h"
 #include "ModuleData.h"
 #include "SortingNetwork.h"
+#include "SquareRoot.h"
 #include "TopKSortingNetwork.h"
 #include "ToString.h"
 
@@ -60,6 +61,10 @@ SHAREMIND_MODULE_API_0x1_SYSCALL_DEFINITIONS(
     SAMENAME(uint64_toString),
     SAMENAME(float32_toString),
     SAMENAME(float64_toString),
+
+    // Mathematics syscalls:
+    SAMENAME(float32_sqrt),
+    SAMENAME(float64_sqrt),
 
     // Sorting network syscalls:
     SAMENAME(SortingNetwork_serializedSize),
