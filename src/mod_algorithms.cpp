@@ -9,6 +9,7 @@
 
 #include <cassert>
 #include <sharemind/libmodapi/api_0x1.h>
+#include "BlockSortPermutation.h"
 #include "CatchModuleApiErrors.h"
 #include "Misc.h"
 #include "ModuleData.h"
@@ -73,7 +74,11 @@ SHAREMIND_MODULE_API_0x1_SYSCALL_DEFINITIONS(
     SAMENAME(TopKSortingNetwork_serialize),
 
     // Misc. syscalls:
-    SAMENAME(sleepMilliseconds)
+    SAMENAME(sleepMilliseconds),
+
+    // Templated syscalls:
+    // BlockSortPermutation syscalls:
+    { "public_uint32_x4_block_sort_permutation", &blockSortPermutation<uint32_t, 4u> }
 
 );
 
