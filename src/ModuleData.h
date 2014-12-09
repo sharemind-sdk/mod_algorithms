@@ -10,13 +10,16 @@
 #ifndef SHAREMIND_MOD_ALGORITHMS_MODULEDATA_H
 #define SHAREMIND_MOD_ALGORITHMS_MODULEDATA_H
 
+#include <sharemind/miner/libconsensusservice.h>
 #include "SortingNetworkGenerator.h"
 #include "TopKSortingNetworkGenerator.h"
 
 
 struct __attribute__ ((visibility("internal"))) ModuleData {
+    ModuleData(SharemindConsensusFacility & cf);
     SortingNetworkGenerator sortingNetworkGenerator;
     TopKSortingNetworkGenerator topKSortingNetworkGenerator;
+    SharemindConsensusFacility &consensusFacility;
 };
 
 #endif /* SHAREMIND_MOD_ALGORITHMS_MODULEDATA_H */
