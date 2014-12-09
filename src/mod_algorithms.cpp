@@ -9,10 +9,8 @@
 
 #include <cassert>
 #include <sharemind/libmodapi/api_0x1.h>
-#include <sharemind/miner/libconsensusservice.h>
 #include "BlockSortPermutation.h"
 #include "CatchModuleApiErrors.h"
-#include "Intersection.h"
 #include "Misc.h"
 #include "ModuleData.h"
 #include "SortingNetwork.h"
@@ -30,17 +28,8 @@ SHAREMIND_MODULE_API_MODULE_INFO("algorithms",
 SHAREMIND_MODULE_API_0x1_INITIALIZER(c) __attribute__ ((visibility("default")));
 SHAREMIND_MODULE_API_0x1_INITIALIZER(c) {
     assert(c);
-
-    const SharemindModuleApi0x1Facility * fconsensus
-            = c->getModuleFacility(c, "ConsensusService");
-    if (!fconsensus || !fconsensus->facility)
-        return SHAREMIND_MODULE_API_0x1_MISSING_FACILITY;
-
-    SharemindConsensusFacility * consensusFacility =
-        static_cast<SharemindConsensusFacility *>(fconsensus->facility);
-
     try {
-        c->moduleHandle = new ModuleData(*consensusFacility);
+        c->moduleHandle = new ModuleData();
         return SHAREMIND_MODULE_API_0x1_OK;
     } catch (...) {
         return catchModuleApiErrors();
@@ -83,9 +72,6 @@ SHAREMIND_MODULE_API_0x1_SYSCALL_DEFINITIONS(
     SAMENAME(SortingNetwork_serialize),
     SAMENAME(TopKSortingNetwork_serializedSize),
     SAMENAME(TopKSortingNetwork_serialize),
-
-    // Consensus service based syscalls:
-    SAMENAME(intersection),
 
     // Misc. syscalls:
     SAMENAME(sleepMilliseconds),
