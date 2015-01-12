@@ -24,24 +24,24 @@ ADD_COMPILE_OPTIONS(
 )
 
 FIND_PACKAGE(libsortnetwork REQUIRED)
+FIND_PACKAGE(SharemindCHeaders REQUIRED)
 FIND_PACKAGE(SharemindCxxHeaders REQUIRED)
 FIND_PACKAGE(SharemindLibmodapi REQUIRED)
 FIND_PACKAGE(SharemindLibsoftfloat REQUIRED)
-FIND_PACKAGE(SharemindVmGlobals REQUIRED)
 
 INCLUDE_DIRECTORIES(
     ${LIBSORTNETWORK_INCLUDE_DIRS}
+    ${SharemindCHeaders_INCLUDE_DIRS}
     ${SharemindCxxHeaders_INCLUDE_DIRS}
     ${SharemindLibmodapi_INCLUDE_DIRS}
     ${SharemindLibsoftfloat_INCLUDE_DIRS}
-    ${SharemindVmGlobals_INCLUDE_DIRS}
 )
 
 ADD_DEFINITIONS(
+    ${SharemindCHeaders_DEFINITIONS}
     ${SharemindCxxHeaders_DEFINITIONS}
     ${SharemindLibmodapi_DEFINITIONS}
     ${SharemindLibsoftfloat_DEFINITIONS}
-    ${SharemindVmGlobals_DEFINITIONS}
 )
 
 FILE(GLOB SHAREMIND_MOD_ALGORITHMS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
@@ -51,9 +51,9 @@ ADD_LIBRARY(sharemind_mod_algorithms MODULE ${SHAREMIND_MOD_ALGORITHMS_SOURCES}
                                             ${SHAREMIND_MOD_ALGORITHMS_HEADERS})
 TARGET_LINK_LIBRARIES(sharemind_mod_algorithms
     ${LIBSORTNETWORK_LIBRARIES}
+    ${SharemindCHeaders_LIBRARIES}
     ${SharemindCxxHeaders_LIBRARIES}
     ${SharemindLibsoftfloat_LIBRARIES}
-    ${SharemindVmGlobals_LIBRARIES}
 )
 
 INSTALL(TARGETS sharemind_mod_algorithms LIBRARY DESTINATION "lib")
