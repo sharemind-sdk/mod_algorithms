@@ -23,6 +23,7 @@
 #include "CatchModuleApiErrors.h"
 #include "Misc.h"
 #include "ModuleData.h"
+#include "Sine.h"
 #include "SortingNetwork.h"
 #include "SquareRoot.h"
 #include "TopKSortingNetwork.h"
@@ -74,6 +75,8 @@ SHAREMIND_MODULE_API_0x1_SYSCALL_DEFINITIONS(
     SAMENAME(float64_toString),
 
     // Mathematics syscalls:
+    SAMENAME(float32_sin),
+    SAMENAME(float64_sin),
     SAMENAME(float32_sqrt),
     SAMENAME(float64_sqrt),
 
