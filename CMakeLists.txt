@@ -39,6 +39,7 @@ FIND_PACKAGE(SharemindCHeaders REQUIRED)
 FIND_PACKAGE(SharemindCxxHeaders REQUIRED)
 FIND_PACKAGE(SharemindLibmodapi REQUIRED)
 FIND_PACKAGE(SharemindLibsoftfloat REQUIRED)
+FIND_PACKAGE(SharemindLibsoftfloatMath REQUIRED)
 
 INCLUDE_DIRECTORIES(
     ${LIBSORTNETWORK_INCLUDE_DIRS}
@@ -46,6 +47,7 @@ INCLUDE_DIRECTORIES(
     ${SharemindCxxHeaders_INCLUDE_DIRS}
     ${SharemindLibmodapi_INCLUDE_DIRS}
     ${SharemindLibsoftfloat_INCLUDE_DIRS}
+    ${SharemindLibsoftfloatMath_INCLUDE_DIRS}
 )
 
 ADD_DEFINITIONS(
@@ -53,6 +55,7 @@ ADD_DEFINITIONS(
     ${SharemindCxxHeaders_DEFINITIONS}
     ${SharemindLibmodapi_DEFINITIONS}
     ${SharemindLibsoftfloat_DEFINITIONS}
+    ${SharemindLibsoftfloatMath_DEFINITIONS}
 )
 
 FILE(GLOB SHAREMIND_MOD_ALGORITHMS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
@@ -65,6 +68,7 @@ TARGET_LINK_LIBRARIES(sharemind_mod_algorithms
     ${SharemindCHeaders_LIBRARIES}
     ${SharemindCxxHeaders_LIBRARIES}
     ${SharemindLibsoftfloat_LIBRARIES}
+    ${SharemindLibsoftfloatMath_LIBRARIES}
 )
 
 INSTALL(TARGETS sharemind_mod_algorithms LIBRARY DESTINATION "lib")
