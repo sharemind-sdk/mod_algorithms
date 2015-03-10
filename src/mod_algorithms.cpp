@@ -19,10 +19,13 @@
 
 #include <cassert>
 #include <sharemind/libmodapi/api_0x1.h>
+#include "Erf.h"
+#include "Exp.h"
 #include "BlockSortPermutation.h"
 #include "CatchModuleApiErrors.h"
 #include "Misc.h"
 #include "ModuleData.h"
+#include "Log.h"
 #include "Sine.h"
 #include "SortingNetwork.h"
 #include "SquareRoot.h"
@@ -75,6 +78,12 @@ SHAREMIND_MODULE_API_0x1_SYSCALL_DEFINITIONS(
     SAMENAME(float64_toString),
 
     // Mathematics syscalls:
+    SAMENAME(float32_erf),
+    SAMENAME(float64_erf),
+    SAMENAME(float32_exp),
+    SAMENAME(float64_exp),
+    SAMENAME(float32_log),
+    SAMENAME(float64_log),
     SAMENAME(float32_sin),
     SAMENAME(float64_sin),
     SAMENAME(float32_sqrt),
