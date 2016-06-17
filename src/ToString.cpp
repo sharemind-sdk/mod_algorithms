@@ -100,7 +100,7 @@ SHAREMIND_EXTERN_C_BEGIN
         } catch (const std::bad_alloc &) { \
             return SHAREMIND_MODULE_API_0x1_OUT_OF_MEMORY; \
         } catch (...) { \
-            return SHAREMIND_MODULE_API_0x1_SHAREMIND_ERROR; \
+            return SHAREMIND_MODULE_API_0x1_MODULE_ERROR; \
         } \
         return SHAREMIND_MODULE_API_0x1_OK; \
     }
