@@ -87,7 +87,7 @@ void float_toString(const void * const arg,
 
 SHAREMIND_EXTERN_C_BEGIN
 
-#define TO_STRING_WRAPPER_DEFINE(type,logic) \
+#define TO_STRING_WRAPPER_DEFINE(type,...) \
     SHAREMIND_MODULE_API_0x1_SYSCALL(type ## _toString, \
                                      args, num_args, refs, crefs, \
                                      returnValue, c) \
@@ -96,7 +96,7 @@ SHAREMIND_EXTERN_C_BEGIN
             return SHAREMIND_MODULE_API_0x1_INVALID_CALL; \
         assert(c); \
         try { \
-            logic \
+            __VA_ARGS__ \
         } catch (const std::bad_alloc &) { \
             return SHAREMIND_MODULE_API_0x1_OUT_OF_MEMORY; \
         } catch (...) { \
