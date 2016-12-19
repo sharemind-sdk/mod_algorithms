@@ -31,7 +31,7 @@ SHAREMIND_MODULE_API_0x1_SYSCALL(blockSortPermutation,
     (void) c;
     (void) args;
 
-    if (num_args != 0u || returnValue || !crefs || !refs)
+    if (num_args != 1u || returnValue || !crefs || !refs)
         return SHAREMIND_MODULE_API_0x1_INVALID_CALL;
 
     assert(crefs[0u].pData);
@@ -46,6 +46,8 @@ SHAREMIND_MODULE_API_0x1_SYSCALL(blockSortPermutation,
     if (crefs[0u].size != sizeof(T) &&
             (crefs[0u].size - 1u) % sizeof(Block) != 0)
         return SHAREMIND_MODULE_API_0x1_INVALID_CALL;
+
+    const bool ascending = static_cast<bool>(args[0].uint8[0]);
 
     const size_t dataSize =
         crefs[0u].size == sizeof(T) ?
@@ -72,10 +74,19 @@ SHAREMIND_MODULE_API_0x1_SYSCALL(blockSortPermutation,
     }
 
     const Block * const data = static_cast<const Block *>(crefs[0u].pData);
-    std::stable_sort(index, index + indexSize / sizeof(uint64_t),
-            [&data] (const uint64_t a, const uint64_t b) {
-                return data[a] < data[b];
-            });
+    uint64_t * const start = index;
+    uint64_t * const end = index + indexSize / sizeof(uint64_t);
+    if (ascending) {
+        std::stable_sort(start, end,
+                         [&data] (const uint64_t a, const uint64_t b) {
+                             return data[a] < data[b];
+                         });
+    } else {
+        std::stable_sort(start, end,
+                         [&data] (const uint64_t a, const uint64_t b) {
+                             return data[a] > data[b];
+                         });
+    }
 
     return SHAREMIND_MODULE_API_0x1_OK;
 }
