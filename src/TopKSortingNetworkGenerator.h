@@ -22,8 +22,9 @@
 
 #include <cassert>
 #include <cstdint>
+#include <map>
+#include <memory>
 #include <mutex>
-#include <sharemind/ScopedObjectMap.h>
 #include <utility>
 #include <vector>
 
@@ -78,11 +79,6 @@ public: /* Types: */
 
     };
 
-private: /* Types: */
-
-    typedef sharemind::ScopedObjectMap<std::pair<uint64_t, uint64_t>, Network>
-            Cache;
-
 public: /* Methods: */
 
     Network * getCachedOrGenerateAndCacheNetwork(const uint64_t elements,
@@ -91,7 +87,7 @@ public: /* Methods: */
 private: /* Fields: */
 
     mutable std::mutex m_cacheMutex;
-    Cache m_cache;
+    std::map<std::pair<uint64_t, uint64_t>, std::unique_ptr<Network> > m_cache;
 
 }; /* class TopKSortingNetworkGenerator { */
 

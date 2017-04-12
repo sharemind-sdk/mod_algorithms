@@ -20,8 +20,11 @@
 #ifndef SHAREMIND_MOD_ALGORITHMS_SORTINGNETWORKGENERATOR_H
 #define SHAREMIND_MOD_ALGORITHMS_SORTINGNETWORKGENERATOR_H
 
+#include <map>
+#include <memory>
 #include <mutex>
-#include <sharemind/ScopedObjectMap.h>
+#include <sharemind/DebugOnly.h>
+#include <sharemind/MakeUnique.h>
 extern "C" {
 #include <sn_network.h> // libsortnetwork
 }
@@ -138,40 +141,29 @@ private: /* Types: */
 
     }; /* class SortingNetwork { */
 
-    typedef sharemind::ScopedObjectMap<size_t, SortingNetwork> Cache;
-
 public: /* Methods: */
 
     inline SortingNetwork * getCachedOrGenerateAndCacheNetwork(
                 const size_t elements)
     {
         std::lock_guard<std::mutex> lock(m_sortingNetworkCacheMutex);
-        if (m_sortingNetworkCache.find(elements) != m_sortingNetworkCache.end())
-            return m_sortingNetworkCache.find(elements)->second;
-
-        // Generate the sorting network
-        SortingNetwork * const sn = new SortingNetwork(elements);
-
-        try {
-            // Validate it
-            if (!sn->isValid()) {
-                delete sn;
-                return nullptr;
-            }
-
-            // Cache the network and initialize the usage count
-            m_sortingNetworkCache.insert(Cache::value_type(elements, sn));
-        } catch (...) {
-            delete sn;
-            throw;
-        }
-        return sn;
+        auto it(m_sortingNetworkCache.find(elements));
+        if (it != m_sortingNetworkCache.cend())
+            return it->second.get();
+        auto sn(sharemind::makeUnique<SortingNetwork>(elements));
+        if (!sn->isValid())
+            return nullptr;
+        auto r(sn.get());
+        SHAREMIND_DEBUG_ONLY(auto const rv =)
+                m_sortingNetworkCache.emplace(elements, std::move(sn));
+        assert(rv.second);
+        return r;
     }
 
 private: /* Fields: */
 
     mutable std::mutex m_sortingNetworkCacheMutex;
-    Cache m_sortingNetworkCache;
+    std::map<size_t, std::unique_ptr<SortingNetwork> > m_sortingNetworkCache;
 
 }; /* class SortingNetworkGenerator {*/
 

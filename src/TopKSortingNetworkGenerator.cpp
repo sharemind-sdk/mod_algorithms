@@ -20,6 +20,8 @@
 #include "TopKSortingNetworkGenerator.h"
 
 #include <algorithm>
+#include <sharemind/DebugOnly.h>
+#include <sharemind/MakeUnique.h>
 #include <utility>
 
 
@@ -100,51 +102,46 @@ inline PascalStageIterator endRow(const uint64_t n) {
 }
 
 // Find the best (for a loose value of best) k from array of length 2^n.
-Network * constructPartialSwissSortingNetwork(const uint64_t elements,
-                                              const uint64_t k)
+std::unique_ptr<Network> constructPartialSwissSortingNetwork(
+        uint64_t const elements,
+        uint64_t const k)
 {
-    Network * const stages = new Network();
+    auto stages(sharemind::makeUnique<Network>());
     const uint64_t n = logBase2(elements);
-    try {
-        Stage stage;
-        std::vector<bool> needToCompute(1 << n);
-        std::vector<bool> needToComputeNext(1 << n);
+    Stage stage;
+    std::vector<bool> needToCompute(1 << n);
+    std::vector<bool> needToComputeNext(1 << n);
 
-        for (size_t i = 0; i < k; ++ i)
-            needToCompute.at(i) = true;
+    for (size_t i = 0; i < k; ++ i)
+        needToCompute.at(i) = true;
 
-        size_t shift = 0;
-        for (size_t r = 1; r <= n; ++ r) {
-            stage.clear();
-            size_t offset = 0;
-            for (PascalStageIterator i = beginRow(n-r), e = endRow(n-r);
-                 i != e;
-                 ++ i)
-            {
-                const size_t half = *i << shift;
-                for (size_t j = offset; j < half + offset; ++ j) {
-                    if (needToCompute[j]) {
-                        stage.push_back(std::make_pair(j, j + half));
-                        needToComputeNext[j] = true;
-                        needToComputeNext[j + half] = true;
-                    }
+    size_t shift = 0;
+    for (size_t r = 1; r <= n; ++ r) {
+        stage.clear();
+        size_t offset = 0;
+        for (PascalStageIterator i = beginRow(n-r), e = endRow(n-r);
+             i != e;
+             ++ i)
+        {
+            const size_t half = *i << shift;
+            for (size_t j = offset; j < half + offset; ++ j) {
+                if (needToCompute[j]) {
+                    stage.push_back(std::make_pair(j, j + half));
+                    needToComputeNext[j] = true;
+                    needToComputeNext[j + half] = true;
                 }
-
-                offset += half*2;
             }
 
-            ++shift;
-            swap(needToCompute, needToComputeNext);
-
-            stages->push_back(stage);
+            offset += half*2;
         }
 
-        reverse(stages->begin(), stages->end());
-    } catch (...) {
-        delete stages;
-        throw;
+        ++shift;
+        swap(needToCompute, needToComputeNext);
+
+        stages->push_back(stage);
     }
 
+    reverse(stages->begin(), stages->end());
     return stages;
 }
 
@@ -155,21 +152,16 @@ Network * TopKSortingNetworkGenerator::getCachedOrGenerateAndCacheNetwork(
         const uint64_t elements,
         const uint64_t k)
 {
-    const std::pair<uint64_t, uint64_t> key(elements, k);
+    std::pair<uint64_t, uint64_t> key(elements, k);
 
     std::lock_guard<std::mutex> lock(m_cacheMutex);
-    const Cache::const_iterator it = m_cache.find(key);
-    if (it != m_cache.end())
-        return it->second;
-
-    // Generate the sorting network
-    Network * const sn = constructPartialSwissSortingNetwork(elements, k);
-    try {
-        // Cache the network and initialize the usage count
-        m_cache.insert(Cache::value_type(key, sn));
-    } catch (...) {
-        delete sn;
-        throw;
-    }
-    return sn;
+    auto it(m_cache.find(key));
+    if (it != m_cache.cend())
+        return it->second.get();
+    auto sn(constructPartialSwissSortingNetwork(elements, k));
+    auto r(sn.get());
+    SHAREMIND_DEBUG_ONLY(auto const rv =)
+            m_cache.emplace(std::move(key), std::move(sn));
+    assert(rv.second);
+    return r;
 }
