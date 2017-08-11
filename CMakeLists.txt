@@ -28,9 +28,6 @@ SET(SHAREMIND_MOD_ALGORITHMS_SOVERSION
 SET(SHAREMIND_MOD_ALGORITHMS_VERSION
     "${SHAREMIND_MOD_ALGORITHMS_SOVERSION}.${CPACK_PACKAGE_VERSION_PATCH}")
 
-SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeIncludes/"
-                      ${CMAKE_MODULE_PATH})
-
 INCLUDE("${CMAKE_CURRENT_SOURCE_DIR}/config.local" OPTIONAL)
 INCLUDE("${CMAKE_CURRENT_BINARY_DIR}/config.local" OPTIONAL)
 
@@ -42,20 +39,20 @@ ADD_COMPILE_OPTIONS(
   "$<$<STREQUAL:$<CONFIGURATION>,Release>:-fomit-frame-pointer>"
 )
 
-FIND_PACKAGE(libsortnetwork REQUIRED)
 FIND_PACKAGE(SharemindCHeaders REQUIRED)
 FIND_PACKAGE(SharemindCxxHeaders REQUIRED)
 FIND_PACKAGE(SharemindLibmodapi REQUIRED)
 FIND_PACKAGE(SharemindLibsoftfloat REQUIRED)
 FIND_PACKAGE(SharemindLibsoftfloatMath REQUIRED)
+FIND_PACKAGE(SharemindLibSortNetwork REQUIRED)
 
 INCLUDE_DIRECTORIES(
-    ${LIBSORTNETWORK_INCLUDE_DIRS}
     ${SharemindCHeaders_INCLUDE_DIRS}
     ${SharemindCxxHeaders_INCLUDE_DIRS}
     ${SharemindLibmodapi_INCLUDE_DIRS}
     ${SharemindLibsoftfloat_INCLUDE_DIRS}
     ${SharemindLibsoftfloatMath_INCLUDE_DIRS}
+    ${SharemindLibSortNetwork_INCLUDE_DIRS}
 )
 
 ADD_DEFINITIONS(
@@ -64,6 +61,7 @@ ADD_DEFINITIONS(
     ${SharemindLibmodapi_DEFINITIONS}
     ${SharemindLibsoftfloat_DEFINITIONS}
     ${SharemindLibsoftfloatMath_DEFINITIONS}
+    ${SharemindLibSortNetwork_DEFINITIONS}
 )
 
 FILE(GLOB SHAREMIND_MOD_ALGORITHMS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
@@ -77,6 +75,7 @@ TARGET_LINK_LIBRARIES(sharemind_mod_algorithms
     ${SharemindCxxHeaders_LIBRARIES}
     ${SharemindLibsoftfloat_LIBRARIES}
     ${SharemindLibsoftfloatMath_LIBRARIES}
+    ${SharemindLibSortNetwork_LIBRARIES}
 )
 SET_TARGET_PROPERTIES("sharemind_mod_algorithms" PROPERTIES
                       OUTPUT_NAME "sharemind_mod_algorithms"
@@ -94,7 +93,7 @@ SET(CPACK_DEBIAN_PACKAGE_NAME "libsharemind-mod-algorithms")
 SET(CPACK_DEBIAN_PACKAGE_RELEASE "cyber1")
 SET(CPACK_DEBIAN_COMPRESSION_TYPE "xz")
 SET(CPACK_DEBIAN_PACKAGE_DEPENDS
-    "libc6 (>= 2.19), libsortnetwork (>= 1.1.0), libstdc++6 (>= 4.8.0)")
+    "libc6 (>= 2.19), libsharemind-sortnetwork (>= 1.1.0), libstdc++6 (>= 4.8.0)")
 SET(CPACK_DEBIAN_PACKAGE_SECTION "libs")
 SET(CPACK_DEBIAN_FILE_NAME "DEB-DEFAULT")
 INCLUDE(CPack)

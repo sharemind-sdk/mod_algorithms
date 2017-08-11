@@ -24,10 +24,8 @@
 #include <memory>
 #include <mutex>
 #include <sharemind/DebugOnly.h>
+#include <sharemind/libsortnetwork/network.h>
 #include <sharemind/MakeUnique.h>
-extern "C" {
-#include <sn_network.h> // libsortnetwork
-}
 #include <utility>
 
 
