@@ -42,16 +42,16 @@ ADD_COMPILE_OPTIONS(
 FIND_PACKAGE(SharemindCHeaders REQUIRED)
 FIND_PACKAGE(SharemindCxxHeaders REQUIRED)
 FIND_PACKAGE(SharemindLibmodapi REQUIRED)
-FIND_PACKAGE(SharemindLibsoftfloat REQUIRED)
-FIND_PACKAGE(SharemindLibsoftfloatMath REQUIRED)
+FIND_PACKAGE(SharemindLibSoftfloat REQUIRED)
+FIND_PACKAGE(SharemindLibSoftfloatMath REQUIRED)
 FIND_PACKAGE(SharemindLibSortNetwork REQUIRED)
 
 INCLUDE_DIRECTORIES(
     ${SharemindCHeaders_INCLUDE_DIRS}
     ${SharemindCxxHeaders_INCLUDE_DIRS}
     ${SharemindLibmodapi_INCLUDE_DIRS}
-    ${SharemindLibsoftfloat_INCLUDE_DIRS}
-    ${SharemindLibsoftfloatMath_INCLUDE_DIRS}
+    ${SharemindLibSoftfloat_INCLUDE_DIRS}
+    ${SharemindLibSoftfloatMath_INCLUDE_DIRS}
     ${SharemindLibSortNetwork_INCLUDE_DIRS}
 )
 
@@ -59,8 +59,8 @@ ADD_DEFINITIONS(
     ${SharemindCHeaders_DEFINITIONS}
     ${SharemindCxxHeaders_DEFINITIONS}
     ${SharemindLibmodapi_DEFINITIONS}
-    ${SharemindLibsoftfloat_DEFINITIONS}
-    ${SharemindLibsoftfloatMath_DEFINITIONS}
+    ${SharemindLibSoftfloat_DEFINITIONS}
+    ${SharemindLibSoftfloatMath_DEFINITIONS}
     ${SharemindLibSortNetwork_DEFINITIONS}
 )
 
@@ -73,8 +73,8 @@ TARGET_LINK_LIBRARIES(sharemind_mod_algorithms
     ${LIBSORTNETWORK_LIBRARIES}
     ${SharemindCHeaders_LIBRARIES}
     ${SharemindCxxHeaders_LIBRARIES}
-    ${SharemindLibsoftfloat_LIBRARIES}
-    ${SharemindLibsoftfloatMath_LIBRARIES}
+    ${SharemindLibSoftfloat_LIBRARIES}
+    ${SharemindLibSoftfloatMath_LIBRARIES}
     ${SharemindLibSortNetwork_LIBRARIES}
 )
 SET_TARGET_PROPERTIES("sharemind_mod_algorithms" PROPERTIES

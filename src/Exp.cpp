@@ -24,8 +24,8 @@
 #include <cstring>
 #include <iomanip>
 #include <limits>
-#include <sharemind/3rdparty/libsoftfloat/softfloat.h>
-#include <sharemind/3rdparty/libsoftfloat_math/sf_exp.h>
+#include <sharemind/libsoftfloat/softfloat.h>
+#include <sharemind/libsoftfloat_math/sf_exp.h>
 #include <sstream>
 
 SHAREMIND_EXTERN_C_BEGIN

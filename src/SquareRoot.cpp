@@ -24,7 +24,7 @@
 #include <cstring>
 #include <iomanip>
 #include <limits>
-#include <sharemind/3rdparty/libsoftfloat/softfloat.h>
+#include <sharemind/libsoftfloat/softfloat.h>
 #include <sstream>
 
 
