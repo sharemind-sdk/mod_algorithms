@@ -77,6 +77,8 @@ SharemindAddComponentPackage("lib"
     DEB_SECTION "libs"
     DEB_DEPENDS
         "libc6 (>= 2.19)"
+        "libsharemind-softfloat (>= 0.1.0)"
+        "libsharemind-softfloat-math (>= 0.1.0)"
         "libsharemind-sortnetwork (>= 1.1.0)"
         "libstdc++6 (>= 4.8.0)"
 )
