@@ -77,7 +77,7 @@ SHAREMIND_MODULE_API_0x1_SYSCALL(TopKSortingNetwork_serialize,
     assert(c->moduleHandle);
 
     if (num_args != 2u || crefs || !refs
-        || (assert(refs[0u].pData), refs[1u].pData)
+        || (static_cast<void>(assert(refs[0u].pData)), refs[1u].pData)
         || returnValue)
         return SHAREMIND_MODULE_API_0x1_INVALID_CALL;
 
