@@ -23,6 +23,6 @@
 #include "DeclareSyscall.h"
 
 
-SHAREMIND_MOD_ALGORITHMS_DECLARE_SYSCALL(sleepMilliseconds)
+SHAREMIND_MOD_ALGORITHMS_DECLARE_SYSCALL(sleepMilliseconds,)
 
 #endif /* SHAREMIND_MOD_ALGORITHMS_MISC_H */
