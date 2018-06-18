@@ -87,6 +87,6 @@ SharemindAddComponentPackage("debug"
     DESCRIPTION "Sharemind Algorithms module debug symbols"
     DEB_SECTION "debug"
     DEB_DEPENDS
-        "libsharemind-mod-algorithms (= ${SharemindModAlgorithms_VERSION})"
+        "libsharemind-mod-algorithms (= ${SharemindModAlgorithms_DEB_lib_PACKAGE_VERSION})"
 )
 SharemindPackagingFinalize()
