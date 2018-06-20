@@ -29,7 +29,7 @@ SharemindSetProjectVersion()
 
 
 FIND_PACKAGE(SharemindCHeaders 1.1.0 REQUIRED)
-FIND_PACKAGE(SharemindCxxHeaders REQUIRED)
+FIND_PACKAGE(SharemindCxxHeaders 0.2.0 REQUIRED)
 FIND_PACKAGE(SharemindLibSoftfloat 0.2.0 REQUIRED)
 FIND_PACKAGE(SharemindLibSoftfloatMath REQUIRED)
 FIND_PACKAGE(SharemindLibSortNetwork REQUIRED)
