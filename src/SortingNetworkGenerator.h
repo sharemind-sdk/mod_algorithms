@@ -109,25 +109,25 @@ private: /* Types: */
 
                 // First we store the left sides of the pairs
                 for (size_t p = 0u; p < pairsInStage; p++) {
-                    comp = stage->comparators + p;
+                    comp = SN_STAGE_COMP_GET(stage, p);
                     ptr[offset++] = SN_COMP_LEFT(comp);
                 }
 
                 // Then, we store the right sides of the pairs
                 for (size_t p = 0u; p < pairsInStage; p++) {
-                    comp = stage->comparators + p;
+                    comp = SN_STAGE_COMP_GET(stage, p);
                     ptr[offset++] = SN_COMP_RIGHT(comp);
                 }
 
                 // We also store the target positions. Minima first.
                 for (size_t p = 0u; p < pairsInStage; p++) {
-                    comp = stage->comparators + p;
+                    comp = SN_STAGE_COMP_GET(stage, p);
                     ptr[offset++] = SN_COMP_MIN(comp);
                 }
 
                 // Maxima second.
                 for (size_t p = 0u; p < pairsInStage; p++) {
-                    comp = stage->comparators + p;
+                    comp = SN_STAGE_COMP_GET(stage, p);
                     ptr[offset++] = SN_COMP_MAX(comp);
                 }
             }
