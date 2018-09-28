@@ -20,6 +20,7 @@
 #ifndef SHAREMIND_MOD_ALGORITHMS_SORTINGNETWORKGENERATOR_H
 #define SHAREMIND_MOD_ALGORITHMS_SORTINGNETWORKGENERATOR_H
 
+#include <cassert>
 #include <map>
 #include <memory>
 #include <mutex>
