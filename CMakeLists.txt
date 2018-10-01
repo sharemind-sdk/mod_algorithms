@@ -58,7 +58,6 @@ SharemindAddSharedLibrary("sharemind_mod_algorithms"
         ${SharemindLibSoftfloatMath_DEFINITIONS}
         ${SharemindLibSortNetwork_DEFINITIONS}
     LINK_LIBRARIES
-        ${LIBSORTNETWORK_LIBRARIES}
         ${SharemindCHeaders_LIBRARIES}
         ${SharemindCxxHeaders_LIBRARIES}
         ${SharemindLibSoftfloat_LIBRARIES}
