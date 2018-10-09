@@ -25,7 +25,7 @@
 #include <memory>
 #include <mutex>
 #include <sharemind/DebugOnly.h>
-#include <sharemind/libsortnetwork/network.h>
+#include <sharemind/libsortnetwork/Network.h>
 #include <sharemind/MakeUnique.h>
 #include <utility>
 
