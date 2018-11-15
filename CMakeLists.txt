@@ -35,7 +35,7 @@ FIND_PACKAGE(SharemindModuleApis 1.0.0 REQUIRED)
 
 
 # The module:
-SharemindSetCxx11CompileOptions()
+SharemindSetCxx14CompileOptions()
 FILE(GLOB SharemindModAlgorithms_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 FILE(GLOB SharemindModAlgorithms_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h")
 SharemindAddSharedLibrary("sharemind_mod_algorithms"
