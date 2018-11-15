@@ -21,7 +21,6 @@
 
 #include <algorithm>
 #include <sharemind/DebugOnly.h>
-#include <sharemind/MakeUnique.h>
 #include <utility>
 
 
@@ -106,7 +105,7 @@ std::unique_ptr<Network> constructPartialSwissSortingNetwork(
         uint64_t const elements,
         uint64_t const k)
 {
-    auto stages(sharemind::makeUnique<Network>());
+    auto stages(std::make_unique<Network>());
     const uint64_t n = logBase2(elements);
     Stage stage;
     std::vector<bool> needToCompute(1 << n);

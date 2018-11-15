@@ -26,7 +26,6 @@
 #include <mutex>
 #include <sharemind/DebugOnly.h>
 #include <sharemind/libsortnetwork/Network.h>
-#include <sharemind/MakeUnique.h>
 #include <utility>
 
 
@@ -110,7 +109,7 @@ public: /* Methods: */
         auto it(m_sortingNetworkCache.find(numInputs));
         if (it != m_sortingNetworkCache.cend())
             return it->second.get();
-        auto sn(sharemind::makeUnique<SortingNetwork>(numInputs));
+        auto sn(std::make_unique<SortingNetwork>(numInputs));
         auto r(sn.get());
         SHAREMIND_DEBUG_ONLY(auto const rv =)
                 m_sortingNetworkCache.emplace(numInputs, std::move(sn));
