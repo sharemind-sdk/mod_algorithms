@@ -100,6 +100,7 @@ SHAREMIND_MODULE_API_0x1_SYSCALL_DEFINITIONS(
 
     // Templated syscalls:
     // BlockSortPermutation syscalls:
+    { "public_uint16_sort_permutation", &blockSortPermutation<uint16_t, 1u> },
     { "public_uint32_sort_permutation", &blockSortPermutation<uint32_t, 1u> },
     { "public_uint32_x4_block_sort_permutation", &blockSortPermutation<uint32_t, 4u> }
 
