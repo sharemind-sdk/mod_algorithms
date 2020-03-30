@@ -92,6 +92,8 @@ SHAREMIND_MODULE_API_0x1_SYSCALL_DEFINITIONS(
     // Sorting network syscalls:
     SAMENAME(SortingNetwork_serializedSize),
     SAMENAME(SortingNetwork_serialize),
+    SAMENAME(MergingNetwork_serializedSize),
+    SAMENAME(MergingNetwork_serialize),
     SAMENAME(TopKSortingNetwork_serializedSize),
     SAMENAME(TopKSortingNetwork_serialize),
 

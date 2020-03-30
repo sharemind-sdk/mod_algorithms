@@ -25,7 +25,8 @@
 
 
 struct __attribute__ ((visibility("internal"))) ModuleData {
-    SortingNetworkGenerator sortingNetworkGenerator;
+    SortingNetworkGenerator<SortingNetwork> sortingNetworkGenerator;
+    SortingNetworkGenerator<MergingNetwork> mergingNetworkGenerator;
     TopKSortingNetworkGenerator topKSortingNetworkGenerator;
 };
 
