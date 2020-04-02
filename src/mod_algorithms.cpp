@@ -102,8 +102,17 @@ SHAREMIND_MODULE_API_0x1_SYSCALL_DEFINITIONS(
 
     // Templated syscalls:
     // BlockSortPermutation syscalls:
+    { "public_bool_sort_permutation", &blockSortPermutation<uint8_t, 1u> },
+    { "public_uint8_sort_permutation", &blockSortPermutation<uint8_t, 1u> },
     { "public_uint16_sort_permutation", &blockSortPermutation<uint16_t, 1u> },
     { "public_uint32_sort_permutation", &blockSortPermutation<uint32_t, 1u> },
+    { "public_uint64_sort_permutation", &blockSortPermutation<uint64_t, 1u> },
+    { "public_int8_sort_permutation", &blockSortPermutation<int8_t, 1u> },
+    { "public_int16_sort_permutation", &blockSortPermutation<int16_t, 1u> },
+    { "public_int32_sort_permutation", &blockSortPermutation<int32_t, 1u> },
+    { "public_int64_sort_permutation", &blockSortPermutation<int64_t, 1u> },
+    { "public_float32_sort_permutation", &blockSortPermutation<sf_float32, 1u, FloatBlockCompare<sf_float32, 1u> > },
+    { "public_float64_sort_permutation", &blockSortPermutation<sf_float64, 1u, FloatBlockCompare<sf_float64, 1u> > },
     { "public_uint32_x4_block_sort_permutation", &blockSortPermutation<uint32_t, 4u> }
 
 );

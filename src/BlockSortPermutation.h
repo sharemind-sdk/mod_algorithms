@@ -22,8 +22,60 @@
 
 #include <algorithm>
 #include <array>
+#include <sharemind/libsoftfloat/softfloat.h>
 
-template <typename T, size_t N>
+
+template<typename T, size_t N>
+struct __attribute__ ((visibility("internal"))) BlockCompare {
+    using Block = std::array<T, N>;
+
+    int operator()(const Block& a, const Block& b, bool ascending) {
+        if (ascending) {
+            return a < b;
+        } else {
+            return a > b;
+        }
+    }
+};
+
+bool sf_float_gt(const sf_float32& a, const sf_float32& b) {
+    sf_fpu_state state = 0;
+    return sf_float32_gt(a, b, state).result;
+}
+
+bool sf_float_gt(const sf_float64& a, const sf_float64& b) {
+    sf_fpu_state state = 0;
+    return sf_float64_gt(a, b, state).result;
+}
+
+bool sf_float_lt(const sf_float32& a, const sf_float32& b) {
+    sf_fpu_state state = 0;
+    return sf_float32_lt(a, b, state).result;
+}
+
+bool sf_float_lt(const sf_float64& a, const sf_float64& b) {
+    sf_fpu_state state = 0;
+    return sf_float64_lt(a, b, state).result;
+}
+
+template<typename T, size_t N>
+struct __attribute__ ((visibility("internal"))) FloatBlockCompare {
+    using Block = std::array<T, N>;
+
+    int operator()(const Block& a, const Block& b, bool ascending) {
+        for (size_t i = 0; i < N; ++i) {
+            if ((ascending && sf_float_lt(a[i], b[i])) ||
+                (!ascending && sf_float_gt(a[i], b[i])))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+};
+
+template <typename T, size_t N, class Compare = BlockCompare<T, N> >
 SHAREMIND_MODULE_API_0x1_SYSCALL(blockSortPermutation,
                                  args, num_args, refs, crefs,
                                  returnValue, c)
@@ -74,19 +126,14 @@ SHAREMIND_MODULE_API_0x1_SYSCALL(blockSortPermutation,
     }
 
     const Block * const data = static_cast<const Block *>(crefs[0u].pData);
+    Compare compare;
     uint64_t * const start = index;
     uint64_t * const end = index + indexSize / sizeof(uint64_t);
-    if (ascending) {
-        std::stable_sort(start, end,
-                         [&data] (const uint64_t a, const uint64_t b) {
-                             return data[a] < data[b];
-                         });
-    } else {
-        std::stable_sort(start, end,
-                         [&data] (const uint64_t a, const uint64_t b) {
-                             return data[a] > data[b];
-                         });
-    }
+
+    std::stable_sort(start, end,
+                     [&data, &compare, ascending] (const uint64_t a, const uint64_t b) {
+                         return compare(data[a], data[b], ascending);
+                     });
 
     return SHAREMIND_MODULE_API_0x1_OK;
 }
