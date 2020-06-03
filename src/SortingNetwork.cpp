@@ -166,6 +166,10 @@ SHAREMIND_MODULE_API_0x1_SYSCALL(MergingNetwork_serializedSize,
 /**
  * Mandatory ref argument: uint64 size of array to sort
  * No return value.
+ *
+ * NOTE that this returns a merging network not a merge sort
+ * network. It expects an input where two halves have already been
+ * sorted and it will merge the halves.
  */
 SHAREMIND_MODULE_API_0x1_SYSCALL(MergingNetwork_serialize,
                                  args, num_args, refs, crefs,
