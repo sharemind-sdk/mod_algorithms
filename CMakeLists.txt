@@ -23,47 +23,42 @@ PROJECT(SharemindModAlgorithms VERSION 1.2.0 LANGUAGES CXX)
 INCLUDE("${CMAKE_CURRENT_SOURCE_DIR}/config.local" OPTIONAL)
 INCLUDE("${CMAKE_CURRENT_BINARY_DIR}/config.local" OPTIONAL)
 
-FIND_PACKAGE(SharemindCMakeHelpers 1.4 REQUIRED)
+FIND_PACKAGE(SharemindCMakeHelpers 1.6 REQUIRED)
 
 
-FIND_PACKAGE(SharemindCHeaders 1.1.0 REQUIRED)
-FIND_PACKAGE(SharemindCxxHeaders 0.2.0 REQUIRED)
-FIND_PACKAGE(SharemindLibSoftfloat 0.2.0 REQUIRED)
-FIND_PACKAGE(SharemindLibSoftfloatMath 0.1.0 REQUIRED)
-FIND_PACKAGE(SharemindLibSortNetwork 0.2.0 REQUIRED)
-FIND_PACKAGE(SharemindModuleApis 1.0.0 REQUIRED)
+FIND_PACKAGE(SharemindCHeaders 1.3.0 REQUIRED)
+FIND_PACKAGE(SharemindCxxHeaders 0.8.0 REQUIRED)
+FIND_PACKAGE(SharemindLibSoftfloat 0.3.0 REQUIRED)
+FIND_PACKAGE(SharemindLibSoftfloatMath 0.2.0 REQUIRED)
+FIND_PACKAGE(SharemindLibSortNetwork 0.3.0 REQUIRED)
+FIND_PACKAGE(SharemindModuleApis 1.1.0 REQUIRED)
 
 
 # The module:
 SharemindSetCxx14CompileOptions()
 FILE(GLOB SharemindModAlgorithms_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 FILE(GLOB SharemindModAlgorithms_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h")
-SharemindAddSharedLibrary("sharemind_mod_algorithms"
+SharemindAddSharedLibrary(ModAlgorithms
     MODULE
     OUTPUT_NAME "sharemind_mod_algorithms"
     SOURCES
         ${SharemindModAlgorithms_SOURCES}
         ${SharemindModAlgorithms_HEADERS}
-    INCLUDE_DIRECTORIES
-        ${SharemindCHeaders_INCLUDE_DIRS}
-        ${SharemindCxxHeaders_INCLUDE_DIRS}
-        ${SharemindLibSoftfloat_INCLUDE_DIRS}
-        ${SharemindLibSoftfloatMath_INCLUDE_DIRS}
-        ${SharemindLibSortNetwork_INCLUDE_DIRS}
-        ${SharemindModuleApis_INCLUDE_DIRS}
-    LEGACY_DEFINITIONS
-        ${SharemindCHeaders_DEFINITIONS}
-        ${SharemindCxxHeaders_DEFINITIONS}
-        ${SharemindLibSoftfloat_DEFINITIONS}
-        ${SharemindLibSoftfloatMath_DEFINITIONS}
-        ${SharemindLibSortNetwork_DEFINITIONS}
-    LINK_LIBRARIES
-        ${SharemindCHeaders_LIBRARIES}
-        ${SharemindCxxHeaders_LIBRARIES}
-        ${SharemindLibSoftfloat_LIBRARIES}
-        ${SharemindLibSoftfloatMath_LIBRARIES}
-        ${SharemindLibSortNetwork_LIBRARIES}
 )
+TARGET_INCLUDE_DIRECTORIES(ModAlgorithms
+    INTERFACE
+        # $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src> # TODO
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
+    )
+TARGET_LINK_LIBRARIES(ModAlgorithms
+    PRIVATE
+        Sharemind::CHeaders
+        Sharemind::CxxHeaders
+        Sharemind::LibSoftfloat
+        Sharemind::LibSoftfloatMath
+        Sharemind::LibSortNetwork
+        Sharemind::ModuleApis
+    )
 
 # Configuration files:
 INSTALL(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/packaging/configs/sharemind/"
@@ -80,9 +75,9 @@ SharemindAddComponentPackage("lib"
     DEB_SECTION "libs"
     DEB_DEPENDS
         "libc6 (>= 2.19)"
-        "libsharemind-softfloat (>= 0.2.0)"
-        "libsharemind-softfloat-math (>= 0.1.0)"
-        "libsharemind-sortnetwork (>= 0.2.0)"
+        "libsharemind-softfloat (>= 0.3.0)"
+        "libsharemind-softfloat-math (>= 0.2.0)"
+        "libsharemind-sortnetwork (>= 0.3.0)"
         "libstdc++6 (>= 4.8.0)"
     DEB_EXTRA_CONTROL_FILES
         "${CMAKE_CURRENT_SOURCE_DIR}/packaging/debian/conffiles"
