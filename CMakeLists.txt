@@ -47,7 +47,7 @@ SharemindAddSharedLibrary(ModAlgorithms
 TARGET_INCLUDE_DIRECTORIES(ModAlgorithms
     INTERFACE
         # $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src> # TODO
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
+        $<INSTALL_INTERFACE:include>
     )
 TARGET_LINK_LIBRARIES(ModAlgorithms
     PRIVATE
