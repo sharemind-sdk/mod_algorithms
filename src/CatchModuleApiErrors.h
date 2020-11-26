@@ -17,6 +17,9 @@
  * For further information, please contact us at sharemind@cyber.ee.
  */
 
+#ifndef SHAREMIND_MOD_ALGORITHMS_CATCHMODULEAPIERRORS_H
+#define SHAREMIND_MOD_ALGORITHMS_CATCHMODULEAPIERRORS_H
+
 #include <exception>
 #include <new>
 #include <sharemind/module-apis/api_0x1.h>
@@ -36,3 +39,5 @@ inline SharemindModuleApi0x1Error catchModuleApiErrors() noexcept {
         return SHAREMIND_MODULE_API_0x1_GENERAL_ERROR;
     }
 }
+
+#endif /* SHAREMIND_MOD_ALGORITHMS_CATCHMODULEAPIERRORS_H */
