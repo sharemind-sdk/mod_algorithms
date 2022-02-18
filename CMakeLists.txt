@@ -30,7 +30,7 @@ FIND_PACKAGE(SharemindCHeaders 1.3.0 REQUIRED)
 FIND_PACKAGE(SharemindCxxHeaders 0.9.0 REQUIRED)
 FIND_PACKAGE(SharemindLibSoftfloat 0.3.0 REQUIRED)
 FIND_PACKAGE(SharemindLibSoftfloatMath 0.2.0 REQUIRED)
-FIND_PACKAGE(SharemindLibSortNetwork 0.3.0 REQUIRED)
+FIND_PACKAGE(SharemindLibSortNetwork 0.4.0 REQUIRED)
 FIND_PACKAGE(SharemindModuleApis 1.1.0 REQUIRED)
 
 
