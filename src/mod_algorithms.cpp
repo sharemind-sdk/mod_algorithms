@@ -113,7 +113,9 @@ SHAREMIND_MODULE_API_0x1_SYSCALL_DEFINITIONS(
     { "public_int64_sort_permutation", &blockSortPermutation<int64_t, 1u> },
     { "public_float32_sort_permutation", &blockSortPermutation<sf_float32, 1u, FloatBlockCompare<sf_float32, 1u> > },
     { "public_float64_sort_permutation", &blockSortPermutation<sf_float64, 1u, FloatBlockCompare<sf_float64, 1u> > },
-    { "public_uint32_x4_block_sort_permutation", &blockSortPermutation<uint32_t, 4u> }
+    { "public_uint32_x4_block_sort_permutation", &blockSortPermutation<uint32_t, 4u> },
+    { "public_uint64_x4_block_sort_permutation", &blockSortPermutation<uint64_t, 4u> },
+    { "public_uint64_x8_block_sort_permutation", &blockSortPermutation<uint64_t, 8u> }
 
 );
 
