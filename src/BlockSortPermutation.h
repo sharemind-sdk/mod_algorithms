@@ -96,22 +96,22 @@ SHAREMIND_MODULE_API_0x1_SYSCALL(blockSortPermutation,
                   "Block type size differs from the assumed type size");
 
     if (crefs[0u].size != sizeof(T) &&
-            (crefs[0u].size - 1u) % sizeof(Block) != 0)
+            (crefs[0u].size) % sizeof(Block) != 0)
         return SHAREMIND_MODULE_API_0x1_INVALID_CALL;
 
     const bool ascending = static_cast<bool>(args[0].uint8[0]);
 
     const size_t dataSize =
         crefs[0u].size == sizeof(T) ?
-        sizeof(T) : crefs[0u].size - 1u;
+        sizeof(T) : crefs[0u].size;
 
     if (refs[0u].size != sizeof(uint64_t) &&
-            (refs[0u].size - 1u) % sizeof(uint64_t) != 0)
+            (refs[0u].size) % sizeof(uint64_t) != 0)
         return SHAREMIND_MODULE_API_0x1_INVALID_CALL;
 
     const size_t indexSize =
         refs[0u].size == sizeof(uint64_t) ?
-        sizeof(uint64_t) : refs[0u].size - 1u;
+        sizeof(uint64_t) : refs[0u].size;
 
     if (dataSize / sizeof(Block) != indexSize / sizeof(uint64_t))
         return SHAREMIND_MODULE_API_0x1_INVALID_CALL;

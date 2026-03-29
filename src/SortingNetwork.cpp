@@ -97,7 +97,6 @@ SHAREMIND_MODULE_API_0x1_SYSCALL(SortingNetwork_serialize,
     if (elementCount < 1)
         return SHAREMIND_MODULE_API_0x1_INVALID_CALL;
 
-    // Note that this strips the remainder 1 byte used by SecreC:
     const size_t availableStorageSize = refs[0u].size / sizeof(uint64_t);
 
     // Get the sorting network service
@@ -194,7 +193,6 @@ SHAREMIND_MODULE_API_0x1_SYSCALL(MergingNetwork_serialize,
     if (elementCount < 1)
         return SHAREMIND_MODULE_API_0x1_INVALID_CALL;
 
-    // Note that this strips the remainder 1 byte used by SecreC:
     const size_t availableStorageSize = refs[0u].size / sizeof(uint64_t);
 
     // Get the sorting network service
