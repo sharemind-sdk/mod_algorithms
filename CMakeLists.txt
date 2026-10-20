@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 Cybernetica
+# Copyright (C) Cybernetica
 #
 # Research/Commercial License Usage
 # Licensees holding a valid Research License or Commercial License
@@ -18,16 +18,16 @@
 #
 
 CMAKE_MINIMUM_REQUIRED(VERSION 3.18)
-PROJECT(SharemindModAlgorithms VERSION 1.4.0 LANGUAGES CXX)
+PROJECT(SharemindModAlgorithms VERSION 1.5.0 LANGUAGES CXX)
 
 INCLUDE("${CMAKE_CURRENT_SOURCE_DIR}/config.local" OPTIONAL)
 INCLUDE("${CMAKE_CURRENT_BINARY_DIR}/config.local" OPTIONAL)
 
-FIND_PACKAGE(SharemindCMakeHelpers 1.6 REQUIRED)
+FIND_PACKAGE(SharemindCMakeHelpers 1.8 REQUIRED)
 
 
 FIND_PACKAGE(SharemindCHeaders 1.3.0 REQUIRED)
-FIND_PACKAGE(SharemindCxxHeaders 0.10.1 REQUIRED)
+FIND_PACKAGE(SharemindCxxHeaders 0.11.0 REQUIRED)
 FIND_PACKAGE(SharemindLibSoftfloat 0.3.0 REQUIRED)
 FIND_PACKAGE(SharemindLibSoftfloatMath 0.2.0 REQUIRED)
 FIND_PACKAGE(SharemindLibSortNetwork 0.4.0 REQUIRED)
